@@ -60,25 +60,25 @@ SCENARIO("Capturing standard output in a test", "[capture]")
 #endif
 
 #if FINISHED_PART_1
-SCENARIO("Evaluate Code for Task 1", "[task1]") {
-    GIVEN("Some pre-conditions") {
-        // declare any objects needed to satisfy preconditions
-
-        WHEN("Some stimulus occurs") {
-            // invoke said stimulus
-
-            THEN("Validate any post-conditions") {
-                REQUIRE(true == true);
-            }
+namespace csc232 {
+    class TestShape final : public Shape {
+    public:
+        double area() const override {
+            return 0;
         }
-    }
 
-    GIVEN("Another set of pre-conditions") {
-        // declare objects needed for this different set of preconditions
+        double perimeter() const override {
+            return 0;
+        }
+    };
+}
+SCENARIO("Evaluate Code for Task 1", "[task1]") {
+    GIVEN("The student has completed Task 1") {
 
-        WHEN("Some other stimulus occurs") {
-            THEN("Validate any new post-conditions") {
-                REQUIRE(true == true);
+        WHEN("An implementation of the Shape interface is implemented") {
+            const csc232::Shape *shapePtr = new csc232::TestShape{};
+            THEN("The Shape can be used as necessary") {
+                REQUIRE(shapePtr->area() == 0);
             }
         }
     }
@@ -104,24 +104,14 @@ SCENARIO("Bootstrap - If you see this, you haven't done anything yet!", "[bootst
 
 #if FINISHED_PART_2
 SCENARIO("Evaluate Code for Task 2", "[task2]") {
-    GIVEN("Some pre-conditions") {
-        // declare any objects needed to satisfy preconditions
-
-        WHEN("Some stimulus occurs") {
-            // invoke said stimulus
-
-            THEN("Validate any post-conditions") {
-                REQUIRE(true == true);
+    GIVEN("The student has completed Task 2") {
+        WHEN("The Square implementation of the Shape interface is implemented") {
+            const csc232::Shape *shapePtr = new csc232::Square{};
+            THEN("The area of the square is found to be as required") {
+                REQUIRE(shapePtr->area() == 1.0);
             }
-        }
-    }
-
-    GIVEN("Another set of pre-conditions") {
-        // declare objects needed for this different set of preconditions
-
-        WHEN("Some other stimulus occurs") {
-            THEN("Validate any new post-conditions") {
-                REQUIRE(true == true);
+            AND_THEN("The perimeter of the square is also found to be as required") {
+                REQUIRE(shapePtr->perimeter() == 4.0);
             }
         }
     }
@@ -130,24 +120,18 @@ SCENARIO("Evaluate Code for Task 2", "[task2]") {
 
 #if FINISHED_PART_3
 SCENARIO("Evaluate Code for Task 3", "[task3]") {
-    GIVEN("Some pre-conditions") {
-        // declare any objects needed to satisfy preconditions
-
-        WHEN("Some stimulus occurs") {
-            // invoke said stimulus
-
-            THEN("Validate any post-conditions") {
-                REQUIRE(true == true);
+    GIVEN("The student has completed Task 3") {
+        WHEN("The Circle implementation of the Shape interface is implemented") {
+            const csc232::Shape *shapePtr = new csc232::Circle{};
+            THEN("The area of the circle is found to be as required") {
+                constexpr double expected_area{M_PI};
+                const double actual_area{shapePtr->area()};
+                REQUIRE(expected_area == actual_area);
             }
-        }
-    }
-
-    GIVEN("Another set of pre-conditions") {
-        // declare objects needed for this different set of preconditions
-
-        WHEN("Some other stimulus occurs") {
-            THEN("Validate any new post-conditions") {
-                REQUIRE(true == true);
+            AND_THEN("The perimeter of the circle is found to be as required") {
+                constexpr double expected_perimeter{2 * M_PI};
+                const double actual_perimeter{shapePtr->perimeter()};
+                REQUIRE(expected_perimeter == actual_perimeter);
             }
         }
     }

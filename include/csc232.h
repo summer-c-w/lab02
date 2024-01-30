@@ -18,9 +18,9 @@
 #define TRUE 1
 #define EXECUTE_BLOCK FALSE
 
-#define FINISHED_PART_1 TRUE
-#define FINISHED_PART_2 TRUE
-#define FINISHED_PART_3 TRUE
+#define FINISHED_PART_1 FALSE
+#define FINISHED_PART_2 FALSE
+#define FINISHED_PART_3 FALSE
 
 #include <algorithm>
 #include <cassert>
@@ -61,6 +61,11 @@ using std::setw;
 namespace csc232
 {
     // Add any user-defined functions prescribed in your assignment below
+    // TODO: 1.1 Declare the Shape interface below
+
+    // TODO: 2.1 Provide an inline definition of the Square class below
+
+    // TODO: 3.1 Provide an inline definition of the Circle class below
 
     // DO NOT Modify anything below this line
 } // namespace csc232
