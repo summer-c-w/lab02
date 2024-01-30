@@ -1,26 +1,25 @@
-# LHWn - Title
+# LAB02 - Implementing Simple Class Hierarchies
 
-_A quick blurb or sub-title text_
+As a means of increasing productivity, stubbing out operations allows us to proceed without having an entire solution to a problem.
 
 ## Background
 
 Before proceeding with this lab, the student should take the time to read
 
-* this
-* that 
-* and the other thing
+* Appendix A of Carrano & Henry
+* Chapter 1 of Carrano & Henry
 
 ## Objective
 
 Upon successful completion of this lab, the student has learned how to
 
-* do this
-* do that
-* do another thing
+* specify an interface
+* implement an interface using stubs
+* demonstrate polymorphic behavior
 
 ## Getting Started
 
-After accepting this assignment with the provided [GitHub Classroom Assignment link](https://classroom.github.com/fill-me-in), decide how you want to work with your newly created repository:
+After accepting this assignment with the provided [GitHub Classroom Assignment link](https://classroom.github.com/a/yS1uTm26), decide how you want to work with your newly created repository:
 
 - Using Codespaces directly in your web browser that employees the Visual Studio Code online IDE, or
 - Using the IDE of your choice on your local machine
@@ -42,13 +41,13 @@ The command you use to clone is slightly different depending upon whether you're
 If you're using the https protocol, your clone command is:
 
 ```shell
-git clone https://github.com/msu-csc232/<repo-name>.git
+git clone https://github.com/msu-csc232-sp24/<repo-name>.git
 ```
 
 If you're using the `ssh` protocol, your clone command is:
 
 ```shell
-git clone git@github.com:msu-csc232/<repo-name>.git
+git clone git@github.com:msu-csc232-sp24/<repo-name>.git
 ```
 
 After cloning the repository, navigate into the newly cloned repository:
@@ -73,27 +72,91 @@ git status
 
 _You may have to type the `q` character to get back to the command line prompt after viewing the status._
 
+### Preparing to create PRs against your trunk
+
+Because your assignments are forked from a template in GitHub, we want to ensure that when we create pull requests, we are seeking to merge into our trunk branch, and not that of the parent trunk.
+
+Open a terminal window (either in your Codespace, or locally if you cloned your repo to your development machine) and type the following commands. 
+
+Note: 
+
+* Don't type the `$` character; this represents the command line prompt
+* Substitute your actual GitHub username for the string `github-username` in these commands.
+
+```shell
+$ gh repo set-default msu-csc232-sp24/lab02-github-username
+✓ Set msu-csc232-sp24/lab02-github-username as the default repository for the current directory
+$ gh repo set-default --view
+msu-csc232-sp24/lab02-github-username
+```
+
+Here, we use the `gh repo set-default` command. If you leave off the name at the end of the command, `gh` will give your choices, which is nice, in case you forget the format of the repo names. Finally, on line 4, we use the same `gh` command, albeit with the `--view` switch, to verify it's been changed as desired.
+
 ## Tasks
 
 This lab consists of three tasks:
 
-- Task 1: <TODO: Declare me!>
-- Task 2: <TODO: Declare me!>
-- Task 3: <TODO: Declare me!>
+- Task 1: Specify the `Shape` interface
+- Task 2: Implement the `Shape` interface (Square)
+- Task 3: Implement the `Shape` interface (Circle)
 
-Pol, neuter abactor!
+By the time you have completed this lab, you will have realized the following design:
 
-### Task 1: <TODO: Declare me!>
+![Class Diagram](./img/class-diagram.png)
 
-Ecce, urbs!
+*Figure 1: Shape class hierarchy*
 
-### Task 2: <TODO: Declare me!>
+### Task 1: Specify the `Shape` interface
 
-Ubi est dexter medicina?
+C++ doesn't have an `interface` keyword like some languages such as Java. However, we "mimic" the concept by creating an abstract class composed entirely of pure virtual member functions. Pure virtual functions are declared by beginning the declaration with the keyword `virtual` and ending the declaration with an assignment to 0. For example:
 
-### Task 3: <TODO: Declare me!>
+```c++
+virtual someMethod() = 0;
+```
 
-Ubi est dexter medicina?
+In order to fully realize polymorphic behavior, we also need to specify a virtual destructor. Since, in this case today, nothing special needs to occur in this destructor, we can explicitly assign it a default implementation assigning it the keyword `default`. So, for `SomeClass`, the destructor would be declared as:
+
+```c++
+class Base {
+public:
+    virtual void someMethod() = 0; // pure virtual member function
+    virtual ~Base() = default;     // virtual destructor
+};
+```
+
+1. Using *Figure 1* as your guide, declare the `Shape` interface where specified by `TODO: 1.1` in [csc232.h](include/csc232.h)
+2. Declare a default implementation of the interface's destructor.
+3. Toggle the `FINISHED_PART_1` from `FALSE` to `TRUE`.
+4. Test your code by executing the `tests` target.
+5. When the test passes for Task 1, stage, commit and push your changes to GitHub.
+
+### Task 2: Define the `Square` Class
+
+Because we don't have "true" interfaces in C++ (we mimic them using abstract classes as outlined in Task 1), we actually implement the interface by extending some class, i.e., using inheritance. For now, we'll use public inheritance, which basically looks something like:
+
+```c++
+class Derived : public Base {
+public:
+    void someMethod() override {
+       // provide inline implementation
+    }
+    ~Derived() = default;
+private:
+    // declare any necessary attributes
+};
+```
+
+1. Using *Figure 1* as your guide, implement the `Shape` interface by defining the `Square` class inline where specified by `TODO: 2.1` in [csc232.h](include/csc232.h)
+2. Toggle the `FINISHED_PART_2` from `FALSE` to `TRUE`.
+3. Test your code by executing the `tests` target.
+4. When the test passes for Task 2, stage, commit and push your changes to GitHub.
+
+### Task 3: Define the `Circle` Class
+
+1. Using *Figure 1* as your guide, implement the `Shape` interface by defining the `Circle` class inline where specified by `TODO: 3.1` in [csc232.h](include/csc232.h)
+2. Toggle the `FINISHED_PART_3` from `FALSE` to `TRUE`.
+3. Test your code by executing the `tests` target.
+4. When the test passes for Task 3, stage, commit and push your changes to GitHub.
 
 ## Submission Details
 
@@ -113,7 +176,7 @@ As usual, prior to submitting your assignment on Microsoft Teams, be sure that y
 
 ### Due Date
 
-Your assignment submission is due by 11:59 PM, Saturday....
+Your assignment submission is due by the end of the lab period. Write access to your repository will end at 11:59 PM, Saturday, February 3, 2024.
 
 ### Grading Rubric
 
